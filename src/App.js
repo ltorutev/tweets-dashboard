@@ -4,6 +4,7 @@ import { Container, Snackbar} from "@mui/material"
 import SendTweet from './components/SendTweet'
 import {TWEETS_STORAGE} from "./components/utils/constants";
 import ListTweets from "./components/ListTweets";
+
 function App() {
     const [toastProps, setToastProps] = useState({
         open: false,
@@ -22,21 +23,24 @@ function App() {
         localStorage.setItem(TWEETS_STORAGE, JSON.stringify(allTweets))
         setReloadTweets(true)
     }
+    const authHandler = (err, data) => {
+        console.log(err, data);
+    };
   return (
-    <Container className="tweets-simulator" maxWidth={false}>
-      <Header/>
-        <SendTweet setToastProps={setToastProps} allTweets={allTweets}/>
-        <ListTweets allTweets={allTweets} deleteTweet={deleteTweet}/>
-        <Snackbar
-            anchorOrigin={{
-                vertical:"top",
-                horizontal: "right"
-            }}
-            open={toastProps.open}
-            autoHideDuration={1000}
-            message={<span id="message-id">{toastProps.text}</span>}
-        />
-    </Container>
+          <Container className="tweets-simulator" maxWidth={false}>
+              <Header/>
+              <SendTweet setToastProps={setToastProps} allTweets={allTweets}/>
+              <ListTweets allTweets={allTweets} deleteTweet={deleteTweet}/>
+              <Snackbar
+                  anchorOrigin={{
+                      vertical:"top",
+                      horizontal: "right"
+                  }}
+                  open={toastProps.open}
+                  autoHideDuration={1000}
+                  message={<span id="message-id">{toastProps.text}</span>}
+              />
+          </Container>
   );
 }
 
