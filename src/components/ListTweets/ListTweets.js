@@ -1,7 +1,8 @@
 import { Grid } from '@mui/material';
 import './ListTweets.scss'
+import Tweet from "../Tweet";
 
-export default function ListTweets({allTweets}){
+export default function ListTweets({allTweets, deleteTweet}){
     if(!allTweets || allTweets.length === 0){
         return(
             <div className="list-tweets-empty">
@@ -13,7 +14,7 @@ export default function ListTweets({allTweets}){
         <Grid container spacing={3} className="list-tweets">
             {allTweets.map((tweet, index) =>
                 <Grid key={index} items xs={4}>
-                    Tweet...
+                    <Tweet item={tweet} index={index} deleteTweet={deleteTweet}/>
                 </Grid>
             )}
         </Grid>

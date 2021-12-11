@@ -10,15 +10,23 @@ function App() {
         text: null
     })
     const [allTweets, setAllTweets] = useState([])
+    const [reloadTweets, setReloadTweets] = useState(false)
     useEffect(() => {
         const tweets = localStorage.getItem(TWEETS_STORAGE)
         setAllTweets(tweets ? JSON.parse(tweets): [])
-    }, [])
+        setReloadTweets(false)
+    }, [reloadTweets])
+    const deleteTweet = (index) => {
+        allTweets.splice(index, 1)
+        setAllTweets(allTweets)
+        localStorage.setItem(TWEETS_STORAGE, JSON.stringify(allTweets))
+        setReloadTweets(true)
+    }
   return (
     <Container className="tweets-simulator" maxWidth={false}>
       <Header/>
         <SendTweet setToastProps={setToastProps} allTweets={allTweets}/>
-        <ListTweets allTweets={allTweets}/>
+        <ListTweets allTweets={allTweets} deleteTweet={deleteTweet}/>
         <Snackbar
             anchorOrigin={{
                 vertical:"top",
